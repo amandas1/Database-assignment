@@ -1,0 +1,69 @@
+Assignment database by Aman Das
+
+/* SELECT Clause */
+
+1. SELECT COUNT(ntEmpID), MIN(moSalary), COUNT(DISTINCT(ntLevel)) FROM dbo.tblEmp;
+
+/* FROM clause */
+
+2. SELECT [ntEmpID], E.[vcName],E.[vcMobieNumer] FROM tblEmp E;
+
+/* WHERE clause */
+3.SELECT * FROM dbo.tblEmp WHERE vcMobieNumer IS NOT NULL OR (vcMobieNumer IS NULL AND ntLevel=1);
+
+
+/*ORDER BY clause */
+4. SELECT * FROM dbo.tblEmp WHERE vcSkills LIKE '%JavaScript' UNION SELECT * from dbo.tblEmp;
+
+/*Top clause */
+5.a. select the first record from the tblemp table 
+  b. 
+  c. selects the top 1 percent of the total record from the tblemp table
+  d. selects the first record of the total records and also the other records which are equal to that record in the table tblEmp order by vcName in ascending order.
+
+6. The error message occurs because sql server dosent know to which vcMobieNumer to select from the group. so when using GROUP BY we always need a AGGREGATE FUNCTION.
+	One way to resolve this problem is by removing the GROUP BY and the other one is using an aggregate for vcmobienumer.
+
+
+
+7. SELECT ntLevel from dbo.tblEmp where moSalary > (SELECT AVG(moSalary) from dbo.tblEmp)
+
+8. SELECT COUNT(*) FROM Person.Person WHERE SUFFIX IS NOT NULL
+
+9.  Select CONCAT(FirstName, ' ', MiddleName, ' ',LastName), City
+    FROM Person.BusinessEntityAddress INNER JOIN Person.Address ON Person.BusinessEntityAddress.AddressID= Person.Address.AddressID 
+    INNER JOIN Person.Person ON Person.Person.BusinessEntityID = Person.BusinessEntityID where City = 'FrankFurt';
+
+
+10. select SalesOrderID, UnitPrice from Sales.SalesOrderDetail where OrderQty = 1;
+
+11. select DESCRIPTION from Production.Product AS P INNER JOIN Production.ProductModelProductDescriptionCulture
+    AS CULTURE ON P.ProductModelID = CULTURE.ProductModelID INNER JOIN Production.ProductDescription AS
+    PD ON CULTURE.ProductDescriptionID=PD.ProductDescriptionID where ProductID = 736 AND CultureID = 'fr';
+
+12.SELECT Name, OrderQty, ListPrice FROM Production.Product AS P INNER JOIN Sales.SalesOrderDetail AS
+   SOD ON P.ProductID=SOD.ProductID INNER JOIN Sales.SalesOrderHeader AS 
+   SOH ON SOD.SalesOrderID = SOH.SalesOrderID WHERE CustomerID = 635;
+
+13. SELECT SUM(OrderQty) FROM Sales.SalesOrderDetail AS SOD INNER JOIN Sales.SalesOrderHeader AS
+    SOH ON SOD.SalesOrderID = SOH.SalesOrderID INNER JOIN Person.Address AS A
+    ON SOH.ShipToAddressID=A.AddressID where City = 'London' AND
+    ProductID IN (SELECT ProductID FROM Production.Product AS P INNER JOIN Production.ProductSubcategory AS
+    PS ON P.ProductSubcategoryID=PS.ProductSubcategoryID where PS.Name = 'Cranksets');
+
+
+14. CHAR is a fixed length string data type, so any remaining space in the field is padded with blanks.
+    CHAR takes up 1 byte per character. So, a CHAR(100) variable takes up 100 bytes on disk.
+
+    VARCHAR is a variable length string data type, so it holds only the characters you assign to it.
+    VARCHAR takes up 1 byte per character, + 2 bytes to hold length information.
+    For example, if you set a VARCHAR(100) data type = ‘Aman’, then it would take up 4 bytes plus 2 bytes,
+    or 6 bytes in all.
+
+    Nvarchar data type is used to store variable-length. ex. nvarchar(n) ,n defines the string length that ranges
+    from 1 to 4000 and the default value is one
+
+
+
+
+
